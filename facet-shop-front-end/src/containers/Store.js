@@ -13,7 +13,9 @@ export default class Store extends Component {
         quantity: 0
 
       },
-      cart: []
+      user: {
+        cart: []
+      }
     }
   }
   addToCart =(productInfo) => {
@@ -24,19 +26,37 @@ export default class Store extends Component {
       price: 9,
       quantity: productInfo.inputVal
   }})
-  this.state.cart.push(this.state.item)
+  this.state.user.cart.push(this.state.item)
   // this.setState({
   //   item: {}
   // })
 }
 
+  // removeFromCart = (productInfo) => {
+  //   this.state.cart.filter((product) => {
+  //     if (productInfo.)
+  //   })
+  // }
+
+  emptyCart = () => {
+    this.setState({
+      user: {
+        cart: []
+      }
+    })
+  }
 
   render() {
-    // console.log(this.state)
     return (
       <div>
-        <Cart/>
+        <Cart
+          {...this.state}
+          emptyCart={this.emptyCart}
+          removeFromCart={this.removeFromCart}
+        />
         <ProductList
+        {...this.state}
+          products={this.props.products}
           addToCart={this.addToCart}
         />
       </div>
